@@ -20,4 +20,14 @@ LyricSchema.statics.like = function(id) {
     })
 }
 
+LyricSchema.statics.disLike = function(id) {
+  const Lyric = mongoose.model('lyric');
+
+  return Lyric.findById(id)
+    .then(lyric => {
+      --lyric.likes;
+      return lyric.save();
+    })
+}
+
 mongoose.model('lyric', LyricSchema);
